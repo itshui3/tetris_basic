@@ -1,0 +1,11 @@
+.empty {
+    background-color: white;
+}
+
+.static {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.active {
+    background-color: rgba(0, 0, 0, 1);
+}
