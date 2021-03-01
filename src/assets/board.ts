@@ -10,9 +10,10 @@ const row: number[] = [...Array(10)].map(_ => 0)
 export const INITboard: number[][] = [...Array(24)].map(() => [...row])
 
 export const boardBuilder = (state: number[][]) => {
-    // state is an object representation of what the board should look like
-    // this is then used to construct a dom representation of the board 
-    // as it should look in the browser
+// state
+// state is an object representation of what the board should look like
+// this is then used to construct a dom representation of the board 
+// as it should look in the browser
 
     const DOMboard = document.createElement('div');
 
@@ -47,11 +48,9 @@ export const boardBuilder = (state: number[][]) => {
         DOMboard.appendChild(DOMrow);
     })
 
+    // if (pc) {
+
+    // }
+
     return DOMboard;
 }
-
-const INITDOMboard = boardBuilder(INITboard);
-
-INITDOMboard.className = 'board'
-
-export {INITDOMboard}
