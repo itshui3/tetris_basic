@@ -2,8 +2,7 @@
 
 import { Piece } from './index'
 export const attacher = (board: HTMLDivElement, pc: Piece) => {
-    // console.log(board.childNodes)
-    // console.log(board.childNodes[0].childNodes)
+
 /*
 given a pc: {
     pivot: [1, 4],
@@ -17,8 +16,14 @@ given a pc: {
 }
 */
     const attachDeezBlocks = buildAttachables(pc);
-    console.log(attachDeezBlocks);
 
+    attachDeezBlocks.forEach(([curBlockY, curBlockX]) => {
+        const activeDOMBlock = board.childNodes[curBlockY].childNodes[curBlockX] as HTMLDivElement;
+
+        activeDOMBlock.className = 'cell active'
+    })
+
+    return board;
 }
 
 export const buildAttachables = (pc: Piece) => {

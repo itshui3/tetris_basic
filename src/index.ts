@@ -15,7 +15,9 @@ import { HeadCont } from './assets/dash';
 const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
 const INITDOMboard = boardBuilder(INITboard);
-attacher(INITDOMboard, Pieces[0]);
+const UpdatedDOMBoard = attacher(INITDOMboard, Pieces[0]);
+
+console.log(UpdatedDOMBoard);
 
 DOMbody.appendChild(INITDOMboard);
 DOMbody.appendChild(HeadCont);
