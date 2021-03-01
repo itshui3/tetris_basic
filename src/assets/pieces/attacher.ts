@@ -18,7 +18,7 @@ given a pc: {
 */
     const attachDeezBlocks = buildAttachables(pc);
     console.log(attachDeezBlocks);
-    
+
 }
 
 export const buildAttachables = (pc: Piece) => {
@@ -27,7 +27,6 @@ export const buildAttachables = (pc: Piece) => {
     const curFormPcs = pc.forms[pc.form].map(([offsetY, offsetX]) => {
         return [pc.pivot[0] + offsetY, pc.pivot[1] + offsetX]
     })
-    attachables.concat(curFormPcs);
 
     return [...attachables, ...curFormPcs]
 }
