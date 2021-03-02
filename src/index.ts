@@ -7,10 +7,12 @@ import './styles/cellState.css';
 import { 
     INITboard, 
     CELL, 
-    boardBuilder } from './assets/board';
+    boardBuilder } from './assets/components/board';
 
 import { Pieces, attacher } from './assets/pieces/index';
-import { HeadCont } from './assets/dash';
+import { HeaderBuilder } from './assets/components/dash';
+
+import { startGame, endGame } from './mechanics/gameRuntime';
 
 const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
@@ -20,45 +22,27 @@ const UpdatedDOMBoard = attacher(INITDOMboard, Pieces[0]);
 console.log(UpdatedDOMBoard);
 
 DOMbody.appendChild(INITDOMboard);
-DOMbody.appendChild(HeadCont);
 
-enum STATE {
-    READY,
-    PROGRESS,
-    END
-};
-
-enum PIECE {
-    PRESENT,
-    NOTPRESENT
-};
-
-let gameState = STATE.READY;
-let pieceState = PIECE.NOTPRESENT;
-// when start btn is pressed, gameState becomes STATE.PROGRESS
-// progInterval = setInterval that: 
+DOMbody.appendChild(HeaderBuilder());
 
 // const speed = 500;
+let stateThing = 0;
 
-// const startGame = () => {
-//     let activePc; // randomly generate a piece to init
+// const startGame = (Pieces: Piece[]) => {
+//     // init random piece
+//     let initPc = Pieces[Math.floor(Math.random() * Pieces.length)]
+
 
 //     const progInterval = setInterval(() => {
 
-//         switch(pieceState) {
-//             case PIECE.PRESENT:
-//                 // perform drop
-//                 break;
-
-//             case PIECE.NOTPRESENT:
-//                 // generate piece
-//                 break;
-
-//             default:
-//                 throw new Error('piece in some weird state');
-//         };
+//         console.log('can scope increment within interval?', stateThing);
+//         stateThing++;
 
 //     }, 500);
 
 //     return progInterval;
 // };
+
+// const endGame = (gameInterval:NodeJS.Timeout) => {
+//     clearInterval(gameInterval);
+// }
