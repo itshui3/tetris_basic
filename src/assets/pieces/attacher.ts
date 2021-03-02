@@ -3,6 +3,7 @@
 import { Piece } from './index'
 export const attacher = (board: HTMLDivElement, pc: Piece) => {
 
+    const cleanBoard = cleanPrevActives(board);
 /*
 given a pc: {
     pivot: [1, 4],
@@ -15,15 +16,12 @@ given a pc: {
     ]
 }
 */
+    
     const attachDeezBlocks = buildAttachables(pc);
 
-    attachDeezBlocks.forEach(([curBlockY, curBlockX]) => {
-        const activeDOMBlock = board.childNodes[curBlockY].childNodes[curBlockX] as HTMLDivElement;
+    const boardWithAttached = attachToBoard(attachDeezBlocks, cleanBoard);
 
-        activeDOMBlock.className = 'cell active'
-    })
-
-    return board;
+    return boardWithAttached;
 }
 
 export const buildAttachables = (pc: Piece) => {
@@ -34,4 +32,28 @@ export const buildAttachables = (pc: Piece) => {
     })
 
     return [...attachables, ...curFormPcs]
+}
+
+export const cleanPrevActives = (board: HTMLDivElement) => {
+    const rowList = Array.from(board.childNodes);
+
+    rowList.forEach((row) => {
+        const cellList = Array.from(row.childNodes) as HTMLDivElement[];
+
+        cellList.forEach((cell) => {
+            if (cell.className === 'cell active') cell.className = 'cell';
+        })
+    })
+
+    return board;
+}
+
+export const attachToBoard = (blocks: number[][], board: HTMLDivElement) => {
+    blocks.forEach(([curBlockY, curBlockX]) => {
+        const activeDOMBlock = board.childNodes[curBlockY].childNodes[curBlockX] as HTMLDivElement;
+
+        activeDOMBlock.className = 'cell active'
+    })
+
+    return board;
 }
