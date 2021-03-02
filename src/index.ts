@@ -7,12 +7,12 @@ import './styles/cellState.css';
 import { 
     INITboard, 
     CELL, 
-    boardBuilder } from './assets/board';
+    boardBuilder } from './assets/components/board';
 
 import { Pieces, attacher } from './assets/pieces/index';
-import { HeaderBuilder } from './assets/dash';
+import { HeaderBuilder } from './assets/components/dash';
 
-import { startGame, endGame } from './assets/helpers/gameRuntime';
+import { startGame, endGame } from './mechanics/gameRuntime';
 
 const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
@@ -23,8 +23,7 @@ console.log(UpdatedDOMBoard);
 
 DOMbody.appendChild(INITDOMboard);
 
-// HeaderBuilder();
-// DOMbody.appendChild(HeadCont);
+DOMbody.appendChild(HeaderBuilder());
 
 // const speed = 500;
 let stateThing = 0;
