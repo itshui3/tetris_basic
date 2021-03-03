@@ -29,15 +29,23 @@ let STATEpc = getRandomPc(Pieces);
 // dropPcOnce( STATEboard, STATEpc );
 
 let DOMboard = boardBuilder(STATEboard);
-const UpdatedDOMBoard = attacher(DOMboard, STATEpc);
+let DOMBoardSTATE = attacher(DOMboard, STATEpc);
 
-// do one drop
-if (validateDrop(STATEpc, STATEboard)) {
-    STATEpc = dropPc(STATEpc)
-    attacher(DOMboard, STATEpc);
-}
-
-
-DOMbody.appendChild(UpdatedDOMBoard);
 DOMbody.appendChild(HeaderBuilder());
+DOMbody.appendChild(DOMBoardSTATE);
 
+
+// setInterval(() => {
+//     // do one drop
+//     const canDrop = validateDrop(STATEpc, STATEboard)
+
+//     if (canDrop) {
+//         STATEpc = dropPc(STATEpc);
+//         console.log(STATEpc);
+//         DOMbody.removeChild(DOMBoardSTATE);
+
+//         DOMBoardSTATE = attacher(DOMboard, STATEpc);
+
+//         DOMbody.appendChild(DOMBoardSTATE);
+//     }
+// }, 700)
