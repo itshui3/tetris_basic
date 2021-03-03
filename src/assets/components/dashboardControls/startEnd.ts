@@ -1,44 +1,29 @@
 
-
-export const buildStart = (dashboard: HTMLDivElement) => {
+export const buildStart = () => {
 
     const startBtn = document.createElement('button');
+    startBtn.className = 'start_btn';
 
     startBtn.textContent = 'Click to Start!';
-
-    startBtn.addEventListener('click', () => {
-        startGame(dashboard, startBtn);
-    });
 
     return startBtn
 };
 
-const startGame = (dashboard: HTMLDivElement, startBtn: HTMLButtonElement) => {
-
-    dashboard.removeChild(startBtn);
-
-    dashboard.appendChild( buildEnd(dashboard) );
-
-    return dashboard;
-};
-
-const buildEnd = (dashboard: HTMLDivElement) => {
+export const buildEnd = () => {
 
     const endBtn = document.createElement('button');
+    endBtn.className = 'end_btn';
 
     endBtn.textContent = 'Click to End!';
-
-    endBtn.addEventListener('click', () => {
-        endGame(dashboard, endBtn);
-    });
 
     return endBtn
 }
 
-const endGame = (dashboard: HTMLDivElement, endBtn: HTMLButtonElement) => {
-    dashboard.removeChild(endBtn);
-    
-    dashboard.appendChild( buildStart(dashboard) );
+export const buildReset = () => {
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'reset_btn';
 
-    return dashboard;
-};
+    resetBtn.textContent = 'Click to Reset!';
+
+    return resetBtn
+}
