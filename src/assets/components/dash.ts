@@ -1,7 +1,7 @@
 
 import { buildStart } from './dashboardControls/startEnd'
 
-export const HeaderBuilder = () => {
+export const HeaderBuilder = (dropCB: () => NodeJS.Timeout) => {
     
     const HeadCont = document.createElement('div');
     HeadCont.className = 'head';
@@ -14,7 +14,7 @@ export const HeaderBuilder = () => {
     const Dashboard = document.createElement('div');
     Dashboard.className = 'dashboard';
     
-    Dashboard.appendChild(buildStart(Dashboard));
+    Dashboard.appendChild(buildStart(Dashboard, dropCB));
     
     HeadCont.appendChild(Dashboard);
 

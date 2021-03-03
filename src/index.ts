@@ -33,12 +33,14 @@ let STATEpc = getRandomPc(Pieces);
 let DOMboard = boardBuilder(STATEboard);
 let DOMBoardSTATE = attacher(DOMboard, STATEpc);
 
-DOMbody.appendChild(HeaderBuilder());
+const dropCB = () => startDropping(DOMbody, DOMBoardSTATE);
+
+DOMbody.appendChild(HeaderBuilder(dropCB));
 DOMbody.appendChild(DOMBoardSTATE);
 
-const dropInt = startDropping(DOMbody, DOMBoardSTATE);
+// const dropInt = startDropping(DOMbody, DOMBoardSTATE);
 
-setTimeout(() => {
-    stopDropping(dropInt);
-}, 50000)
+// setTimeout(() => {
+//     stopDropping(dropInt);
+// }, 50000)
 
