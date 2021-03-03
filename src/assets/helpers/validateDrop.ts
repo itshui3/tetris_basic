@@ -15,7 +15,7 @@ import { buildAttachables } from './buildAttachables'
 export const validateDrop = (
 Pc: Piece, 
 boardState: number[][]) => {
-    console.log(Pc, boardState);
+
     const pcLoweredPivot = produce(Pc, draft => {
         draft.pivot[0] += 1
     }) as Piece;

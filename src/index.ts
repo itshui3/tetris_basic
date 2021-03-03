@@ -14,6 +14,8 @@ import { HeaderBuilder } from './assets/components/dash';
 
 import { getRandomPc } from './assets/helpers/getRandomPc';
 
+import { startDropping, stopDropping } from './mechanics/gameInterval';
+
 // drop logic
 import { validateDrop } from './assets/helpers/validateDrop'
 import { dropPc } from './assets/helpers/dropPc';
@@ -34,18 +36,9 @@ let DOMBoardSTATE = attacher(DOMboard, STATEpc);
 DOMbody.appendChild(HeaderBuilder());
 DOMbody.appendChild(DOMBoardSTATE);
 
+const dropInt = startDropping(DOMbody, DOMBoardSTATE);
 
-// setInterval(() => {
-//     // do one drop
-//     const canDrop = validateDrop(STATEpc, STATEboard)
+setTimeout(() => {
+    stopDropping(dropInt);
+}, 50000)
 
-//     if (canDrop) {
-//         STATEpc = dropPc(STATEpc);
-//         console.log(STATEpc);
-//         DOMbody.removeChild(DOMBoardSTATE);
-
-//         DOMBoardSTATE = attacher(DOMboard, STATEpc);
-
-//         DOMbody.appendChild(DOMBoardSTATE);
-//     }
-// }, 700)
