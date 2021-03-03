@@ -25,16 +25,17 @@ boardState: number[][]) => {
     let canDrop: boolean = true;
 
     dropCoords.forEach(([activeY, activeX]) => {
+        // if activeY is 23
+        // we cannot perform drop
+        if (activeY > 23) {
+            canDrop = false
+        } else
         // if boardState coord runs into static
         // we cannot perform drop
         if (boardState[activeY][activeX] === CELL.STATIC) {
             canDrop = false
         }
-        // if activeY is 23
-        // we cannot perform drop
-        if (activeY > 22) {
-            canDrop = false
-        }
+
     })
 
     return canDrop;

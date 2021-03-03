@@ -1,20 +1,58 @@
 
 import produce from 'immer';
+
 import { Piece } from '../assets/pieces/index'
-import { getRandomPc } from '../assets/helpers/getRandomPc'
 
 // drop logic
-import { validateDrop } from '../assets/helpers/validateDrop'
+import { validateDrop } from '../assets/helpers/validateDrop';
 import { dropPc } from '../assets/helpers/dropPc';
-import { attacher } from '../assets/pieces/attacher'
+import { attacher, Pieces } from '../assets/pieces/index';
 // transform logic
-import { transformPc } from '../assets/helpers/transformPc'
+import { transformBoard } from '../assets/helpers/transformBoard';
+import { boardBuilder, INITboard } from '../assets/components/board';
+// rehydrate piece
+import { getRandomPc } from '../assets/helpers/getRandomPc';
+import { checkSpawn } from '../assets/helpers/checkSpawn';
 
 
-export const startDropping = (initPc: Piece, initBoard: number[][], root: HTMLBodyElement) => {
+export const startDropping = (
+    root: HTMLBodyElement,
+    boardDOM: HTMLDivElement) => {
 
+    let STATEpc = getRandomPc(Pieces);
+    let STATEboard = INITboard
+    let STATEboardDOM = boardDOM;
+
+    const dropInt = setInterval(() => {
+        // do one drop
+        const canDrop = validateDrop(STATEpc, STATEboard);
     
+        if (canDrop) {
+            STATEpc = dropPc(STATEpc);
 
+            root.removeChild(STATEboardDOM);
+            // cleans prev active && attaches new active
+            STATEboardDOM = attacher(STATEboardDOM, STATEpc);
+    
+            root.appendChild(STATEboardDOM);
+        } else {
+            root.removeChild(STATEboardDOM);
+            STATEboard = transformBoard(STATEpc, STATEboard);
+            
+            STATEboardDOM = boardBuilder(STATEboard);
+
+            STATEpc = getRandomPc(Pieces);
+            if (!checkSpawn(STATEpc, STATEboard)) { 
+                // end the game
+                clearInterval(dropInt) 
+            }
+
+            STATEboardDOM = attacher(STATEboardDOM, STATEpc);
+            root.appendChild(STATEboardDOM);
+        }
+    }, 100)
+    
+    return dropInt;
 };
 
 export const stopDropping = (gameInterval: NodeJS.Timeout) => {
