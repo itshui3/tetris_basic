@@ -44,9 +44,7 @@ export const boardBuilder = (state: number[][]) => {
         DOMboard.appendChild(DOMrow);
     })
 
-    // if (pc) {
-
-    // }
+    DOMboard.className = 'board';
 
     return DOMboard;
 }
