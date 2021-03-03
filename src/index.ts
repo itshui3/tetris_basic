@@ -6,43 +6,38 @@ import './styles/cellState.css';
 
 import { 
     INITboard, 
-    CELL, 
     boardBuilder } from './assets/components/board';
+import { CELL } from './constants/CELL';
 
 import { Pieces, attacher } from './assets/pieces/index';
 import { HeaderBuilder } from './assets/components/dash';
 
-import { startGame, endGame } from './mechanics/gameRuntime';
+import { getRandomPc } from './assets/helpers/getRandomPc';
+
+// drop logic
+import { validateDrop } from './assets/helpers/validateDrop'
+import { dropPc } from './assets/helpers/dropPc';
+
 
 const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
-const INITDOMboard = boardBuilder(INITboard);
-const UpdatedDOMBoard = attacher(INITDOMboard, Pieces[0]);
+// state
+let STATEboard = INITboard;
+let STATEpc = getRandomPc(Pieces);
 
-console.log(UpdatedDOMBoard);
+// test one drop decision: 
+// dropPcOnce( STATEboard, STATEpc );
 
-DOMbody.appendChild(INITDOMboard);
+let DOMboard = boardBuilder(STATEboard);
+const UpdatedDOMBoard = attacher(DOMboard, STATEpc);
 
+// do one drop
+if (validateDrop(STATEpc, STATEboard)) {
+    STATEpc = dropPc(STATEpc)
+    attacher(DOMboard, STATEpc);
+}
+
+
+DOMbody.appendChild(UpdatedDOMBoard);
 DOMbody.appendChild(HeaderBuilder());
 
-// const speed = 500;
-let stateThing = 0;
-
-// const startGame = (Pieces: Piece[]) => {
-//     // init random piece
-//     let initPc = Pieces[Math.floor(Math.random() * Pieces.length)]
-
-
-//     const progInterval = setInterval(() => {
-
-//         console.log('can scope increment within interval?', stateThing);
-//         stateThing++;
-
-//     }, 500);
-
-//     return progInterval;
-// };
-
-// const endGame = (gameInterval:NodeJS.Timeout) => {
-//     clearInterval(gameInterval);
-// }

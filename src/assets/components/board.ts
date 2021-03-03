@@ -1,9 +1,5 @@
 
-export enum CELL {
-    EMPTY,
-    STATIC,
-    ACTIVE
-}
+import { CELL } from '../../constants/CELL'
 
 const row: number[] = [...Array(10)].map(_ => 0)
 
