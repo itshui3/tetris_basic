@@ -13,6 +13,7 @@ import { boardBuilder, INITboard } from '../assets/components/board';
 // rehydrate piece
 import { getRandomPc } from '../assets/helpers/getRandomPc';
 import { checkSpawn } from '../assets/helpers/checkSpawn';
+import { firstRowEmpty } from '../assets/helpers/firstRowEmpty';
 
 
 export const startDropping = (
@@ -45,7 +46,7 @@ export const startDropping = (
             STATEpc = getRandomPc(Pieces);
             // but also if a piece transforms on first row
 
-            if (!checkSpawn(STATEpc, STATEboard)) { 
+            if (!checkSpawn(STATEpc, STATEboard) || !firstRowEmpty(STATEboard[0])) { 
                 // end the game
                 ender()
             }
