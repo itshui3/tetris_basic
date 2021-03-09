@@ -3,7 +3,7 @@ import produce from 'immer';
 
 import { buildStart, buildEnd, buildReset } from './dashboardControls/startEnd';
 
-import { 
+import {
     INITboard, 
     boardBuilder } from '../components/board';
 
@@ -22,15 +22,13 @@ const resetBoard = () => {
 const attachNewBoard = () => {
     // state
     let STATEboard = produce(INITboard, draft => draft);
-    let STATEpc = produce(getRandomPc(Pieces), draft => draft);
 
     let DOMboard = boardBuilder(STATEboard);
-    let DOMBoardSTATE = attacher(DOMboard, STATEpc);
 
     const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
-    DOMbody.appendChild(DOMBoardSTATE);
-    return DOMBoardSTATE;
+    DOMbody.appendChild(DOMboard);
+    return DOMboard;
 };
 
 export const HeaderBuilder = () => {
