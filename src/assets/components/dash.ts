@@ -27,14 +27,11 @@ const attachNewBoard = () => {
     let DOMboard = boardBuilder(STATEboard);
     let DOMBoardSTATE = attacher(DOMboard, STATEpc);
 
-    const DOMbody = document.querySelector('body') as HTMLBodyElement
+    const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
     DOMbody.appendChild(DOMBoardSTATE);
-    return DOMBoardSTATE
-}
-
-
-
+    return DOMBoardSTATE;
+};
 
 export const HeaderBuilder = () => {
     // startDropCB: () => NodeJS.Timeout
@@ -57,22 +54,28 @@ export const HeaderBuilder = () => {
     Dashboard.appendChild(startBtn);
 
     let dropInterval: NodeJS.Timeout;
+
+    function ender() {
+        clearInterval(dropInterval);
+
+        Dashboard.removeChild(endBtn);
+        Dashboard.appendChild(resetBtn);
+    }
     
     startBtn.addEventListener('click', () => {
 
         const DOMboard = document.querySelector('.board') as HTMLDivElement;
         const DOMbody = document.querySelector('body') as HTMLBodyElement;
-        dropInterval = startDropping(DOMbody, DOMboard);
+        dropInterval = startDropping(DOMbody, DOMboard, ender);
 
         Dashboard.removeChild(startBtn);
         Dashboard.appendChild(endBtn);
     });
 
     endBtn.addEventListener('click', () => {
-        clearInterval(dropInterval);
 
-        Dashboard.removeChild(endBtn);
-        Dashboard.appendChild(resetBtn);
+        ender()
+
     });
 
     resetBtn.addEventListener('click', () => {
@@ -81,13 +84,11 @@ export const HeaderBuilder = () => {
 
         Dashboard.removeChild(resetBtn);
         Dashboard.appendChild(startBtn);
-    })
-    
+    });
     
     HeadCont.appendChild(Dashboard);
 
     return HeadCont;
-    
 };
 
 /*
