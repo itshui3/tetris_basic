@@ -17,7 +17,8 @@ import { checkSpawn } from '../assets/helpers/checkSpawn';
 
 export const startDropping = (
     root: HTMLBodyElement,
-    boardDOM: HTMLDivElement) => {
+    boardDOM: HTMLDivElement,
+    ender: () => void) => {
 
     let STATEpc = getRandomPc(Pieces);
     let STATEboard = INITboard
@@ -42,9 +43,11 @@ export const startDropping = (
             STATEboardDOM = boardBuilder(STATEboard);
 
             STATEpc = getRandomPc(Pieces);
+            // but also if a piece transforms on first row
+
             if (!checkSpawn(STATEpc, STATEboard)) { 
                 // end the game
-                clearInterval(dropInt) 
+                ender()
             }
 
             STATEboardDOM = attacher(STATEboardDOM, STATEpc);
