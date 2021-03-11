@@ -21,20 +21,16 @@ keystroke: string) => {
 
     switch(keystroke) {
         case KEYSTROKES.CCW:
-
-            break;
+            return validateCCW(Pc, boardState);
         
         case KEYSTROKES.CW:
-            
-            break;
+            return validateCW(Pc, boardState);
 
         case KEYSTROKES.LEFT:
-
-            break;
+            return validateLEFT(Pc, boardState);
         
         case KEYSTROKES.RIGHT:
-            
-            break;
+            return validateRIGHT(Pc, boardState);
 
         case KEYSTROKES.PLUNGE:
             return validateDrop(Pc, boardState);
@@ -120,6 +116,66 @@ boardState: number[][]) => {
     });
 
     return canCW;
+
+} 
+
+const validateLEFT = (
+Pc: Piece,
+boardState: number[][]) => {
+
+    const leftPc = produce(Pc, draft => {
+
+        draft.pivot[1] -= 1
+
+        return draft;
+    });
+
+    const leftCoords = buildAttachables( leftPc );
+
+    let canLEFT: boolean = true;
+
+    leftCoords.forEach(([activeY, activeX]) => {
+        // if boardState coord runs into static, we cannot left
+        if (boardState[activeY][activeX] === CELL.STATIC) {
+            canLEFT = false
+        } else
+        // if a piece is hitting walls on X axis, we cannot left
+        if (activeX === 0) {
+            canLEFT = false;
+        }
+    });
+
+    return canLEFT;
+
+} 
+
+const validateRIGHT = (
+Pc: Piece,
+boardState: number[][]) => {
+
+    const rightPc = produce(Pc, draft => {
+
+        draft.pivot[1] += 1
+
+        return draft;
+    });
+
+    const rightCoords = buildAttachables( rightPc );
+
+    let canRIGHT: boolean = true;
+
+    rightCoords.forEach(([activeY, activeX]) => {
+        // if boardState coord runs into static, we cannot left
+        if (boardState[activeY][activeX] === CELL.STATIC) {
+            canRIGHT = false
+        } else
+        // if a piece is hitting walls on X axis, we cannot left
+        if (activeX === boardState[0].length-1) {
+            canRIGHT = false;
+        }
+    });
+
+    return canRIGHT;
 
 } 
 

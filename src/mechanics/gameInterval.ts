@@ -41,51 +41,81 @@ export const startDropping = (
         switch(kb.key) {
             case KEYSTROKES.CCW:
 
-                // if form: 0, form should be length of forms - 1
-                if (STATEpc.form === 0) {
-                    STATEpc.form = STATEpc.forms.length-1;
-                } else {
-                // otherwise: form should decrement
-                    STATEpc.form -= 1;
+                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.CCW)) {
+                    // if form: 0, form should be length of forms - 1
+                    if (STATEpc.form === 0) {
+
+                        STATEpc = produce(STATEpc, draft => {
+                            draft.form = draft.forms.length-1;
+                            return draft;
+                        });
+
+                    } else {
+                    // otherwise: form should decrement
+                        STATEpc = produce(STATEpc, draft => {
+                            draft.form -= 1;
+                            return draft;
+                        });
+
+                    };
+                    // replug into dom
                 };
-                // replug into dom
 
                 break;
             
             case KEYSTROKES.CW:
 
-                // if form: length of forms - 1, form should be 0
-                if (STATEpc.form === STATEpc.forms.length-1) {
-                    STATEpc.form = 0;
-                } else {
-                // otherwise form should increment
-                    STATEpc.form += 1;
-                };
-                // replug into dom
+                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.CW)) {
+                    // if form: length of forms - 1, form should be 0
+                    if (STATEpc.form === STATEpc.forms.length-1) {
+
+                        STATEpc = produce(STATEpc, draft => {
+                            draft.form = 0;
+                            return draft;
+                        });
+
+                    } else {
+                    // otherwise form should increment
+
+                        STATEpc = produce(STATEpc, draft => {
+                            draft.form += 1;
+                            return draft;
+                        });
+
+                    };
+                    // replug into dom
+                } else {} // do nothing
                 
                 break;
 
             case KEYSTROKES.LEFT:
 
-                // if pivot[1] is 0, do nothing
-                if (STATEpc.pivot[1] === 0) {}
-                else {
-                // else pivot[1] decrement
-                    STATEpc.pivot[1] -= 1;
-                };
-                // replug into dom
-
+                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.LEFT)) {
+                    // if pivot[1] is 0, do nothing
+                    if (STATEpc.pivot[1] === 0) {}
+                    else {
+                    // else pivot[1] decrement
+                        STATEpc = produce(STATEpc, draft => {
+                            draft.pivot[1] -= 1;
+                        });
+                    };
+                    // replug into dom
+                }
                 break;
             
             case KEYSTROKES.RIGHT:
 
-                // if pivot[1] is STATEboard[0].length - 1, do nothing
-                if (STATEpc.pivot[1] === STATEboard[0].length-1) {}
-                else {
-                // else pivot[1] increment
-                    STATEpc.pivot[1] += 1;
-                };
-                
+                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.CW)) {
+                    // if pivot[1] is STATEboard[0].length - 1, do nothing
+                    if (STATEpc.pivot[1] === STATEboard[0].length-1) {}
+                    else {
+                    // else pivot[1] increment
+                        STATEpc = produce(STATEpc, draft => {
+                            draft.pivot[1] += 1;
+                        });
+
+                    };
+                }
                 break;
 
             case KEYSTROKES.PLUNGE:
