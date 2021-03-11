@@ -12,9 +12,9 @@ import { buildAttachables } from './buildAttachables';
     ACTIVE  -2
 */
 
-export const transformBoard = (Pc: Piece, board: number[][]) => {
+export const transformSTATEBoard = (Pc: Piece, board: number[][]) => {
     const transformDeezBlocks = buildAttachables(Pc);
-    console.log('transformDeez', transformDeezBlocks);
+
     const transformedBoard = produce(board, draft => {
         transformDeezBlocks.forEach(([blockY, blockX]) => {
             draft[blockY][blockX] = CELL.STATIC

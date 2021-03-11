@@ -10,9 +10,7 @@ import {
     INITboard, 
     boardBuilder } from './assets/components/board';
 
-
 import { HeaderBuilder } from './assets/components/dash';
-
 
 const DOMbody = document.querySelector('body') as HTMLBodyElement;
 
