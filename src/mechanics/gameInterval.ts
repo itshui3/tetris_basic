@@ -8,7 +8,7 @@ import { validateDrop } from '../assets/helpers/validateDrop';
 import { dropPc } from '../assets/helpers/dropPc';
 import { attacher, Pieces } from '../assets/pieces/index';
 // transform logic
-import { transformBoard } from '../assets/helpers/transformBoard';
+import { transformSTATEBoard } from '../assets/helpers/transformSTATEBoard';
 import { boardBuilder, INITboard } from '../assets/components/board';
 // rehydrate piece
 import { getRandomPc } from '../assets/helpers/getRandomPc';
@@ -38,6 +38,7 @@ export const startDropping = (
     document.addEventListener('keydown', logKey);
 
     function logKey(kb: KeyboardEvent) {
+
         /*  w r - rotations
             s f - left / right
             d - plunge
@@ -76,25 +77,36 @@ export const startDropping = (
                 if (STATEpc.pivot[1] === 0) {}
                 else {
                 // else pivot[1] decrement
-                    STATEpc.pivot[1] -= 1
-                }
+                    STATEpc.pivot[1] -= 1;
+                };
                 // replug into dom
 
                 break;
             
             case KEYSTROKES.RIGHT:
+
                 // if pivot[1] is STATEboard[0].length - 1, do nothing
+                if (STATEpc.pivot[1] === STATEboard[0].length-1) {}
+                else {
                 // else pivot[1] increment
+                    STATEpc.pivot[1] += 1;
+                };
+                
                 break;
 
             case KEYSTROKES.PLUNGE:
                 // modularize downward movement and reuse in interval as well as here
+                if (validateDrop(STATEpc, STATEboard)) {
+                    STATEpc = dropPc(STATEpc);
+                    updatePcPos();
+                }
+                
                 break;
 
             default:
                 // not the right keypress, therefore do nothing
                 break;
-        }
+        };
     };
 
     // drop interval
@@ -105,15 +117,17 @@ export const startDropping = (
         if (canDrop) {
             STATEpc = dropPc(STATEpc);
 
-            root.removeChild(STATEboardDOM);
-            // cleans prev active && attaches new active
-            STATEboardDOM = attacher(STATEboardDOM, STATEpc);
-            // v - update board
-            root.appendChild(STATEboardDOM);
+            // root.removeChild(STATEboardDOM);
+            // // cleans prev active && attaches new active
+            // STATEboardDOM = attacher(STATEboardDOM, STATEpc);
+            // // v - update board
+            // root.appendChild(STATEboardDOM);
+            updatePcPos();
         } else {
-            root.removeChild(STATEboardDOM);
-            STATEboard = transformBoard(STATEpc, STATEboard);
             
+            STATEboard = transformSTATEBoard(STATEpc, STATEboard);
+            
+            root.removeChild(STATEboardDOM);
             STATEboardDOM = boardBuilder(STATEboard);
 
             STATEpc = getRandomPc(Pieces);
@@ -131,6 +145,18 @@ export const startDropping = (
     }, 100);
     
     return dropInt;
+
+    function updatePcPos() {
+        root.removeChild(STATEboardDOM);
+        // cleans prev active && attaches new active
+        STATEboardDOM = attacher(STATEboardDOM, STATEpc);
+        // v - update board
+        root.appendChild(STATEboardDOM);
+    }
+
+    function transformDOMBoard() {
+
+    }
 };
 
 export const stopDropping = (gameInterval: NodeJS.Timeout) => {
