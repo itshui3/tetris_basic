@@ -4,7 +4,7 @@ import produce from 'immer';
 import { Piece } from '../assets/pieces/index';
 
 // drop logic
-import { validateDrop } from '../assets/helpers/validateDrop';
+import { validatePcMove } from '../assets/helpers/validatePcMove';
 import { dropPc } from '../assets/helpers/dropPc';
 import { attacher, Pieces } from '../assets/pieces/index';
 // transform logic
@@ -15,13 +15,7 @@ import { getRandomPc } from '../assets/helpers/getRandomPc';
 import { checkSpawn } from '../assets/helpers/checkSpawn';
 import { firstRowEmpty } from '../assets/helpers/firstRowEmpty';
 
-enum KEYSTROKES {
-    CCW = 'w',
-    CW = 'r',
-    LEFT = 's',
-    RIGHT = 'f',
-    PLUNGE = 'd'
-};
+import { KEYSTROKES } from '../constants/KEYSTROKES'
 
 export const startDropping = (
     root: HTMLBodyElement,
@@ -96,10 +90,10 @@ export const startDropping = (
 
             case KEYSTROKES.PLUNGE:
                 // modularize downward movement and reuse in interval as well as here
-                if (validateDrop(STATEpc, STATEboard)) {
+                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.PLUNGE)) {
                     STATEpc = dropPc(STATEpc);
                     updatePcPos();
-                }
+                };
                 
                 break;
 
@@ -112,16 +106,10 @@ export const startDropping = (
     // drop interval
     const dropInt = setInterval(() => {
         // do one drop
-        const canDrop = validateDrop(STATEpc, STATEboard);
+        const canDrop = validatePcMove(STATEpc, STATEboard, KEYSTROKES.PLUNGE);
     
         if (canDrop) {
             STATEpc = dropPc(STATEpc);
-
-            // root.removeChild(STATEboardDOM);
-            // // cleans prev active && attaches new active
-            // STATEboardDOM = attacher(STATEboardDOM, STATEpc);
-            // // v - update board
-            // root.appendChild(STATEboardDOM);
             updatePcPos();
         } else {
             
