@@ -26,8 +26,7 @@ export const startDropping = (
     let STATEboard = INITboard;
     let STATEboardDOM = boardDOM;
     
-    console.log('pc shape: ', STATEpc);
-    console.log('board shape', STATEboard);
+    console.log('board X length', STATEboard[0].length);
     // controls
     document.addEventListener('keydown', logKey);
 
@@ -50,12 +49,16 @@ export const startDropping = (
                             return draft;
                         });
 
+                        updatePcPos();
+
                     } else {
                     // otherwise: form should decrement
                         STATEpc = produce(STATEpc, draft => {
                             draft.form -= 1;
                             return draft;
                         });
+
+                        updatePcPos();
 
                     };
                     // replug into dom
@@ -73,6 +76,7 @@ export const startDropping = (
                             draft.form = 0;
                             return draft;
                         });
+                        updatePcPos();
 
                     } else {
                     // otherwise form should increment
@@ -81,7 +85,7 @@ export const startDropping = (
                             draft.form += 1;
                             return draft;
                         });
-
+                        updatePcPos();
                     };
                     // replug into dom
                 } else {} // do nothing
@@ -97,23 +101,25 @@ export const startDropping = (
                     // else pivot[1] decrement
                         STATEpc = produce(STATEpc, draft => {
                             draft.pivot[1] -= 1;
+                            return draft;
                         });
                     };
-                    // replug into dom
+                    updatePcPos();
                 }
                 break;
             
             case KEYSTROKES.RIGHT:
 
-                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.CW)) {
+                if (validatePcMove(STATEpc, STATEboard, KEYSTROKES.RIGHT)) {
                     // if pivot[1] is STATEboard[0].length - 1, do nothing
                     if (STATEpc.pivot[1] === STATEboard[0].length-1) {}
                     else {
                     // else pivot[1] increment
                         STATEpc = produce(STATEpc, draft => {
                             draft.pivot[1] += 1;
+                            return draft;
                         });
-
+                        updatePcPos();
                     };
                 }
                 break;
