@@ -191,7 +191,6 @@ export const startDropping = (
             // v - update board
             root.appendChild(STATEboardDOM);
 
-
         };
     }, 100);
     

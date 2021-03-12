@@ -17,19 +17,25 @@ export const consumeAndDrop = (STATEboard: number[][]) => {
             markedRows.push(i);
         }
     }
-
+    console.log('markedRows', markedRows);
     // [1] drop rows
-    return produce(STATEboard, draftBoard => {
+    let consumedBoard = produce(STATEboard, draftBoard => {
 
         for (let i = 0; i < markedRows.length; i++) {
             // for each marked row cleared, the next one becomes 1 row up
             let curMarked = markedRows[i] + i;
     
             for (let l = curMarked-1; l > -1; l--) {
-                draftBoard[l+1] = STATEboard[l].map(item => item);
+                draftBoard[l+1] = draftBoard[l].map(item => item);
+
             }
         }
+        
+        return draftBoard;
+    });
 
-    })
+    console.log(consumedBoard);
 
-}
+    return consumedBoard;
+
+};
