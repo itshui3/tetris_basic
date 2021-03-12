@@ -12,6 +12,7 @@ import { transformSTATEBoard } from '../assets/helpers/transformSTATEBoard';
 import { boardBuilder, INITboard } from '../assets/components/board';
 // line checking logic
 import { checklinesAndUpdate } from '../assets/helpers/checkLinesAndUpdate'
+import { consumeAndDrop } from '../assets/helpers/consumeAndDrop';
 // rehydrate piece
 import { getRandomPc } from '../assets/helpers/getRandomPc';
 import { checkSpawn } from '../assets/helpers/checkSpawn';
@@ -175,11 +176,10 @@ export const startDropping = (
             */
             if (coloredRows.length) {
                 STATEboard = coloredSTATEboard;
-                setTimeout(() => {
 
-                }, 500);
+                STATEboard = consumeAndDrop(STATEboard);
+
             }
-            
             
             root.removeChild(STATEboardDOM);
             STATEboardDOM = boardBuilder(STATEboard);
@@ -190,7 +190,6 @@ export const startDropping = (
             STATEboardDOM = attacher(STATEboardDOM, STATEpc);
             // v - update board
             root.appendChild(STATEboardDOM);
-
 
         };
     }, 100);
