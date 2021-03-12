@@ -10,6 +10,8 @@ import { attacher, Pieces } from '../assets/pieces/index';
 // transform logic
 import { transformSTATEBoard } from '../assets/helpers/transformSTATEBoard';
 import { boardBuilder, INITboard } from '../assets/components/board';
+// line checking logic
+import { checklinesAndUpdate } from '../assets/helpers/checkLinesAndUpdate'
 // rehydrate piece
 import { getRandomPc } from '../assets/helpers/getRandomPc';
 import { checkSpawn } from '../assets/helpers/checkSpawn';
@@ -61,7 +63,7 @@ export const startDropping = (
                         updatePcPos();
 
                     };
-                    // replug into dom
+
                 };
 
                 break;
@@ -87,7 +89,7 @@ export const startDropping = (
                         });
                         updatePcPos();
                     };
-                    // replug into dom
+
                 } else {} // do nothing
                 
                 break;
@@ -141,6 +143,12 @@ export const startDropping = (
 
     // drop interval
     const dropInt = setInterval(() => {
+        // determine if the game should end
+        if (!checkSpawn(STATEpc, STATEboard) || !firstRowEmpty(STATEboard[0])) {
+            // end the game
+            ender();
+        };
+
         // do one drop
         const canDrop = validatePcMove(STATEpc, STATEboard, KEYSTROKES.PLUNGE);
     
@@ -148,8 +156,18 @@ export const startDropping = (
             STATEpc = dropPc(STATEpc);
             updatePcPos();
         } else {
-            
+
+            /*  this clause implies a block has landed
+                [0] transform
+                [1] check for lines
+                [2] color lines
+                [3] consume lines
+            */
+
+            // [0] perform transform
             STATEboard = transformSTATEBoard(STATEpc, STATEboard);
+            // [1] check for lines and colorcode
+            STATEboard = checklinesAndUpdate(STATEboard);
             
             root.removeChild(STATEboardDOM);
             STATEboardDOM = boardBuilder(STATEboard);
@@ -157,14 +175,11 @@ export const startDropping = (
             STATEpc = getRandomPc(Pieces);
             // but also if a piece transforms on first row
 
-            if (!checkSpawn(STATEpc, STATEboard) || !firstRowEmpty(STATEboard[0])) { 
-                // end the game
-                ender();
-            };
-
             STATEboardDOM = attacher(STATEboardDOM, STATEpc);
             // v - update board
             root.appendChild(STATEboardDOM);
+
+
         };
     }, 100);
     
@@ -178,9 +193,6 @@ export const startDropping = (
         root.appendChild(STATEboardDOM);
     }
 
-    function transformDOMBoard() {
-
-    }
 };
 
 export const stopDropping = (gameInterval: NodeJS.Timeout) => {
