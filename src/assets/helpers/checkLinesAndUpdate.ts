@@ -11,25 +11,34 @@ import { CELL } from '../../constants/CELL';
 
 export const checklinesAndUpdate = (STATEboard: number[][]) => {
 
-    return produce(STATEboard, draft => {
+    let coloredRows: number[] = [];
 
-        return draft.map(row => {
+    return {
 
-            let color = row.reduce((prev, cur) => {
-                if (cur !== CELL.STATIC) {
-                    return false;
+        coloredSTATEboard: produce(STATEboard, draft => {
+
+            return draft.map((row, r_idx) => {
+
+                let color = row.reduce((prev, cur) => {
+                    if (cur !== CELL.STATIC) {
+                        return false;
+                    } else {
+                        return prev;
+                    };
+                }, true);
+
+                if (color) {
+                    coloredRows.push(r_idx);
+                    return row.map(_ => CELL.MARK);
                 } else {
-                    return prev;
+                    return row;
                 };
-            }, true);
+            });
 
-            if (color) {
-                return row.map(_ => CELL.MARK);
-            } else {
-                return row;
-            };
-        });
+        }), 
 
-    });
+        coloredRows: coloredRows
+
+    }
 
 };

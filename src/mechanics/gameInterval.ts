@@ -167,7 +167,19 @@ export const startDropping = (
             // [0] perform transform
             STATEboard = transformSTATEBoard(STATEpc, STATEboard);
             // [1] check for lines and colorcode
-            STATEboard = checklinesAndUpdate(STATEboard);
+            const { coloredSTATEboard, coloredRows } = checklinesAndUpdate(STATEboard);
+
+            /* Consume Line Logic
+            [0] color board
+            [1] consume lines & drop static pieces
+            */
+            if (coloredRows.length) {
+                STATEboard = coloredSTATEboard;
+                setTimeout(() => {
+
+                }, 500);
+            }
+            
             
             root.removeChild(STATEboardDOM);
             STATEboardDOM = boardBuilder(STATEboard);
