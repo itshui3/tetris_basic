@@ -10,12 +10,13 @@ import { dummy } from './dummyPc';
 import { iBlock } from './iBlock';
 import { jBlock } from './jBlock';
 import { LBlock } from './lBlock';
+import { oBlock } from './oBlock';
 
-Pieces.push(dummy);
 //blocks
-Pieces.push(iBlock);
-Pieces.push(jBlock);
-Pieces.push(LBlock);
+// Pieces.push(iBlock);
+// Pieces.push(jBlock);
+// Pieces.push(LBlock);
+// Pieces.push(oBlock);
 
 import { attacher } from './attacher';
 
