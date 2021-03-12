@@ -1,4 +1,4 @@
-// create a dummy pc of 2 squares
+// create an iBlock pc of 4 squares
 import { Piece } from './index';
 
 export const iBlock: Piece = {
