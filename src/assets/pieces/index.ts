@@ -13,6 +13,7 @@ import { LBlock } from './lBlock';
 import { oBlock } from './oBlock';
 import { sBlock } from './sBlock';
 import { tBlock } from './tBlock';
+import { zBlock } from './zBlock';
 
 //blocks
 // Pieces.push(iBlock);
@@ -20,7 +21,8 @@ import { tBlock } from './tBlock';
 // Pieces.push(LBlock);
 // Pieces.push(oBlock);
 // Pieces.push(sBlock);
-Pieces.push(tBlock);
+// Pieces.push(tBlock);
+Pieces.push(zBlock);
 
 import { attacher } from './attacher';
 
