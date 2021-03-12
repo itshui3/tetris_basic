@@ -11,12 +11,14 @@ import { iBlock } from './iBlock';
 import { jBlock } from './jBlock';
 import { LBlock } from './lBlock';
 import { oBlock } from './oBlock';
+import { sBlock } from './sBlock';
 
 //blocks
 // Pieces.push(iBlock);
 // Pieces.push(jBlock);
 // Pieces.push(LBlock);
 // Pieces.push(oBlock);
+Pieces.push(sBlock);
 
 import { attacher } from './attacher';
 
