@@ -10,6 +10,7 @@ import { buildAttachables } from './buildAttachables';
     EMPTY   -0
     STATIC  -1
     ACTIVE  -2
+    MARK    -3
 */
 
 export const transformSTATEBoard = (Pc: Piece, board: number[][]) => {

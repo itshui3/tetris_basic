@@ -9,3 +9,7 @@
 .active {
     background-color: rgba(0, 0, 0, 1);
 }
+
+.mark {
+    background-color: rgba(0, 0, 0, .4);
+}

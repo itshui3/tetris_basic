@@ -19,7 +19,7 @@ export const boardBuilder = (state: number[][]) => {
         r.forEach((c, c_idx) => {
 
             const DOMcell = document.createElement('div');
-            const { EMPTY, STATIC, ACTIVE } = CELL;
+            const { EMPTY, STATIC, ACTIVE, MARK } = CELL;
 
             switch(c) {
                 case EMPTY:
@@ -32,6 +32,10 @@ export const boardBuilder = (state: number[][]) => {
 
                 case ACTIVE:
                     DOMcell.className = 'cell active'
+                    break;
+
+                case MARK:
+                    DOMcell.className = 'cell mark'
                     break;
 
                 default:

@@ -159,7 +159,6 @@ boardState: number[][]) => {
 
         return draft;
     });
-    console.log('constructed rightPc', rightPc);
 
     const rightCoords = buildAttachables( rightPc );
 
@@ -171,7 +170,7 @@ boardState: number[][]) => {
             canRIGHT = false
         } else
         // if a piece is hitting walls on X axis, we cannot left
-        if (activeX === boardState[0].length-1) {
+        if (activeX === boardState[0].length) {
             canRIGHT = false;
         }
     });
