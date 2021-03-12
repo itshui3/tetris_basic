@@ -17,7 +17,7 @@ export const consumeAndDrop = (STATEboard: number[][]) => {
             markedRows.push(i);
         }
     }
-    console.log('markedRows', markedRows);
+
     // [1] drop rows
     let consumedBoard = produce(STATEboard, draftBoard => {
 
@@ -33,8 +33,6 @@ export const consumeAndDrop = (STATEboard: number[][]) => {
         
         return draftBoard;
     });
-
-    console.log(consumedBoard);
 
     return consumedBoard;
 
